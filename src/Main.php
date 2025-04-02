@@ -23,17 +23,22 @@ class Main extends PluginBase implements Listener {
         }
 
         $task = new class($player) extends AsyncTask {
-            public function __construct(private Player $player) { }
+            private string $addr;
+            private string $locale;
 
-            private string $endpoint = "http://ip-api.com/php/";
+            public function __construct(private Player $player) { 
+                $this->addr = $player->getNetworkSession()->getIp();
+            }
+
             public function onRun(): void {
-                $res = var_export(unserialize(file_get_contents($this->endpoint.$this->player->getNetworkSession()->getIp())));
-                if (!isset($res["countryCode"])) {
-                    return;
+                $res = var_export(unserialize(file_get_contents("http://ip-api.com/php/". $this->addr)), true);
+                if (isset($res["countryCode"])) {
+                    $this->locale = $res["countryCode"];
                 }
+             }
 
-                $locale = $res["countryCode"];
-                if ($locale == "IN" || $locale == "hi_IN" || $locale == "bn_IN" || $locale == "ta_IN") { 
+             public function onCompletion(): void {
+                if ($this->locale == "IN" || $this->locale == "hi_IN" || $this->locale == "bn_IN" || $this->locale == "ta_IN") { 
                     $this->player->kick(TextFormat::RED . "You have been kicked by Anti-Indian\nPlease relocate to a first world country to continue.");
                 }
              }
