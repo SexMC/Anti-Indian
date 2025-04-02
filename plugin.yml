@@ -1,0 +1,7 @@
+---
+name: AntiIndian
+version: 0.0.1
+main: SexMC\AntiIndian\Main
+api: 5.27.0
+src-namespace-prefix: SexMC\AntiIndian
+...
