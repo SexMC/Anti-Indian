@@ -4,7 +4,6 @@ namespace SexMC\AntiIndian;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
